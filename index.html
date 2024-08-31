@@ -71,10 +71,18 @@
                 ]
             });
 
-            // Try to play audio
-            var audio = new Audio('lagu.mp3');
-            audio.play().catch(function () {
-                console.log("Autoplay was prevented by the browser.");
+            // Try to play audio after user interaction
+            function playAudio() {
+                var audio = new Audio('lagu.mp3');
+                audio.play().catch(function (error) {
+                    console.log("Autoplay was prevented by the browser.", error);
+                });
+            }
+
+            // Play audio on user interaction
+            $(document).on('click keypress', function () {
+                playAudio();
+                $(document).off('click keypress'); // Remove event listener after first interaction
             });
         });
     </script>
